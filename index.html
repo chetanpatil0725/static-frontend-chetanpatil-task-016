@@ -1,102 +1,138 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>My Portfolio</title>
-  </head>
-  <body>
-    <!-- HEADER -->
-    <header>
-      <h1>chetan</h1>
-      <p>Web Developer | Computer Engineering Student</p>
-      <nav>
-        <a href="#about">About</a> | <a href="#skills">Skills</a> |
-        <a href="#projects">Projects</a> | <a href="#education">Education</a> |
-        <a href="#contact">Contact</a>
-      </nav>
-      <hr />
-    </header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Assignment Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-    <!-- ABOUT SECTION -->
-    <section id="about">
-      <h2>About Me</h2>
-      <p>
-        Hello! I am a Computer Engineering student passionate about web
-        development, animations, and building creative websites using HTML, CSS,
-        and JavaScript.
-      </p>
-      <hr />
-    </section>
+<body>
 
-    <!-- SKILLS SECTION -->
-    <section id="skills">
-      <h2>Skills</h2>
-      <ul>
-        <li>HTML5</li>
-        <li>CSS3</li>
-        <li>JavaScript</li>
-        <li>Responsive Web Design</li>
-        <li>Basic Git & GitHub</li>
-      </ul>
-      <hr />
-    </section>
+<header>
+    <div class="logo">📚 FAMS</div>
 
-    <!-- PROJECTS SECTION -->
-    <section id="projects">
-      <h2>Projects</h2>
+    <nav>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#create">Create Assignment</a>
+        <a href="#assignments">Assignments</a>
+    </nav>
+</header>
 
-      <article>
-        <h3>Portfolio Website</h3>
-        <p>A personal portfolio website created using HTML and CSS.</p>
-      </article>
+<section class="hero">
+    <div>
+        <h1>Faculty Assignment Management System</h1>
+        <p>
+            Create, manage and track assignments easily from one web application.
+        </p>
 
-      <article>
-        <h3>Animated Landing Page</h3>
-        <p>A modern landing page with animations and smooth transitions.</p>
-      </article>
+        <a href="#create" class="btn">Create Assignment</a>
+    </div>
+</section>
 
-      <article>
-        <h3>3D Robot Website</h3>
-        <p>A creative website showcasing a 3D robot using pure CSS.</p>
-      </article>
+<!-- Dashboard -->
 
-      <hr />
-    </section>
+<section id="dashboard" class="container">
 
-    <!-- EDUCATION SECTION -->
-    <section id="education">
-      <h2>Education</h2>
-      <p>Bachelor of computer applications</p>
-      <p>Semester 2</p>
-      <hr />
-    </section>
+    <h2>Faculty Dashboard</h2>
 
-    <!-- CONTACT SECTION -->
-    <section id="contact">
-      <h2>Contact Me</h2>
+    <div class="cards">
 
-      <p>Email: chetan@example.com</p>
-      <p>Phone: +91-XXXXXXXXXX</p>
+        <div class="card">
+            <h3 id="totalAssignments">0</h3>
+            <p>Total Assignments</p>
+        </div>
 
-      <form>
-        <label>Name:</label><br />
-        <input type="text" /><br /><br />
+        <div class="card">
+            <h3 id="pendingAssignments">0</h3>
+            <p>Pending Assignments</p>
+        </div>
 
-        <label>Email:</label><br />
-        <input type="email" /><br /><br />
+        <div class="card">
+            <h3 id="completedAssignments">0</h3>
+            <p>Completed</p>
+        </div>
 
-        <label>Message:</label><br />
-        <textarea rows="4" cols="30"></textarea><br /><br />
+    </div>
 
-        <button type="submit">Send</button>
-      </form>
+</section>
 
-      <hr />
-    </section>
+<!-- Create Assignment -->
 
-    <!-- FOOTER -->
-    <footer>
-      <p>© 2026 chetan. All rights reserved.</p>
-    </footer>
-  </body>
+<section id="create" class="container">
+
+    <h2>Create New Assignment</h2>
+
+    <form id="assignmentForm">
+
+        <label>Assignment Title</label>
+        <input
+            type="text"
+            id="title"
+            placeholder="Enter assignment title"
+            required
+        >
+
+        <label>Subject</label>
+        <input
+            type="text"
+            id="subject"
+            placeholder="Enter subject name"
+            required
+        >
+
+        <label>Description</label>
+        <textarea
+            id="description"
+            placeholder="Enter assignment instructions"
+            required
+        ></textarea>
+
+        <label>Submission Date</label>
+        <input
+            type="date"
+            id="deadline"
+            required
+        >
+
+        <label>Faculty Name</label>
+        <input
+            type="text"
+            id="faculty"
+            placeholder="Enter faculty name"
+            required
+        >
+
+        <button type="submit" class="btn">
+            Create Assignment
+        </button>
+
+    </form>
+
+</section>
+
+<!-- Assignment List -->
+
+<section id="assignments" class="container">
+
+    <h2>Assignment List</h2>
+
+    <input
+        type="text"
+        id="search"
+        class="search"
+        placeholder="🔎 Search assignment..."
+    >
+
+    <div id="assignmentList"></div>
+
+</section>
+
+<footer>
+    <p>© 2026 Faculty Assignment Management System</p>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
 </html>

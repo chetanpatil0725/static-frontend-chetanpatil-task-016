@@ -1,138 +1,349 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Faculty Assignment Management System</title>
+
+    <title>GTU Assignment Creator</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>
-    <div class="logo">📚 FAMS</div>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            🎓 GTU Assignment Creator
+        </div>
 
-    <nav>
-        <a href="#dashboard">Dashboard</a>
-        <a href="#create">Create Assignment</a>
-        <a href="#assignments">Assignments</a>
-    </nav>
-</header>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#create">Create Assignment</a>
+            <a href="#assignments">Assignments</a>
+        </nav>
+    </header>
 
-<section class="hero">
-    <div>
-        <h1>Faculty Assignment Management System</h1>
+
+    <!-- Home Section -->
+    <section id="home" class="hero">
+
+        <div class="hero-content">
+
+            <h1>Faculty Assignment Creator</h1>
+
+            <p>
+                Create and manage assignments for GTU affiliated
+                courses, semesters and subjects.
+            </p>
+
+            <button onclick="goToCreate()">
+                Create Assignment
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- Create Assignment -->
+    <section id="create" class="container">
+
+        <h2>Create New Assignment</h2>
+
+        <form id="assignmentForm">
+
+            <!-- Faculty Name -->
+            <div class="form-group">
+
+                <label>Faculty Name</label>
+
+                <input
+                    type="text"
+                    id="facultyName"
+                    placeholder="Enter faculty name"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Program -->
+            <div class="form-group">
+
+                <label>Program / Course</label>
+
+                <select id="program" required>
+
+                    <option value="">Select Program</option>
+
+                    <option>BCA</option>
+                    <option>Integrated MCA</option>
+                    <option>MCA</option>
+                    <option>B.Tech Computer Engineering</option>
+                    <option>B.Tech IT</option>
+                    <option>B.Tech AI & ML</option>
+                    <option>B.Tech Data Science</option>
+                    <option>BBA</option>
+                    <option>B.Com</option>
+                    <option>MBA</option>
+                    <option>M.Tech</option>
+                    <option>Other</option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Semester -->
+            <div class="form-group">
+
+                <label>Semester</label>
+
+                <select id="semester" required>
+
+                    <option value="">Select Semester</option>
+
+                    <option>Semester 1</option>
+                    <option>Semester 2</option>
+                    <option>Semester 3</option>
+                    <option>Semester 4</option>
+                    <option>Semester 5</option>
+                    <option>Semester 6</option>
+                    <option>Semester 7</option>
+                    <option>Semester 8</option>
+                    <option>Master Semester 1</option>
+                    <option>Master Semester 2</option>
+                    <option>Master Semester 3</option>
+                    <option>Master Semester 4</option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Subject -->
+            <div class="form-group">
+
+                <label>Subject</label>
+
+                <select id="subject" required>
+
+                    <option value="">Select Subject</option>
+
+                    <option>Operating System</option>
+                    <option>Data Structures</option>
+                    <option>Database Management System</option>
+                    <option>Object Oriented Programming</option>
+                    <option>Computer Networks</option>
+                    <option>Web Development</option>
+                    <option>Software Engineering</option>
+                    <option>Computer Architecture</option>
+                    <option>Artificial Intelligence</option>
+                    <option>Machine Learning</option>
+                    <option>Data Science</option>
+                    <option>Cyber Security</option>
+                    <option>Cloud Computing</option>
+                    <option>Java Programming</option>
+                    <option>Python Programming</option>
+                    <option>Mathematics</option>
+                    <option>Other</option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Chapter -->
+            <div class="form-group">
+
+                <label>Chapter / Unit</label>
+
+                <input
+                    type="text"
+                    id="chapter"
+                    placeholder="Example: Unit 1 - Introduction to OS"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Assignment Title -->
+            <div class="form-group">
+
+                <label>Assignment Title</label>
+
+                <input
+                    type="text"
+                    id="title"
+                    placeholder="Enter assignment title"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Description -->
+            <div class="form-group">
+
+                <label>Assignment Description</label>
+
+                <textarea
+                    id="description"
+                    rows="5"
+                    placeholder="Enter assignment instructions..."
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <!-- Important Questions -->
+            <div class="form-group">
+
+                <label>Important Questions</label>
+
+                <textarea
+                    id="questions"
+                    rows="6"
+                    placeholder="Enter important questions&#10;1. Explain Operating System.&#10;2. Explain process states.&#10;3. Explain PCB."
+                ></textarea>
+
+            </div>
+
+
+            <!-- Marks -->
+            <div class="form-group">
+
+                <label>Total Marks</label>
+
+                <input
+                    type="number"
+                    id="marks"
+                    placeholder="Example: 20"
+                    min="1"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Due Date -->
+            <div class="form-group">
+
+                <label>Submission Date</label>
+
+                <input
+                    type="date"
+                    id="dueDate"
+                    required
+                >
+
+            </div>
+
+
+            <!-- File Upload -->
+            <div class="form-group">
+
+                <label>Upload Chapter / Reference File</label>
+
+                <input
+                    type="file"
+                    id="chapterFile"
+                    accept=".pdf,.doc,.docx,.ppt,.pptx,.txt"
+                >
+
+                <small>
+                    PDF, DOC, DOCX, PPT, PPTX or TXT
+                </small>
+
+            </div>
+
+
+            <!-- Important Assignment -->
+            <div class="checkbox">
+
+                <input
+                    type="checkbox"
+                    id="important"
+                >
+
+                <label for="important">
+                    Mark this assignment as Important
+                </label>
+
+            </div>
+
+
+            <!-- Buttons -->
+            <div class="buttons">
+
+                <button type="submit" class="create-btn">
+                    Create Assignment
+                </button>
+
+                <button
+                    type="reset"
+                    class="reset-btn"
+                >
+                    Reset
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+
+    <!-- Assignment Section -->
+    <section id="assignments" class="container">
+
+        <div class="assignment-header">
+
+            <div>
+
+                <h2>Created Assignments</h2>
+
+                <p>
+                    Manage your created assignments
+                </p>
+
+            </div>
+
+            <input
+                type="text"
+                id="search"
+                placeholder="🔍 Search assignment..."
+            >
+
+        </div>
+
+
+        <!-- Assignment Cards -->
+        <div id="assignmentList">
+
+            <!-- JavaScript will add assignments here -->
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+
         <p>
-            Create, manage and track assignments easily from one web application.
+            © 2026 GTU Assignment Creator | Faculty Assignment Management
         </p>
 
-        <a href="#create" class="btn">Create Assignment</a>
-    </div>
-</section>
+    </footer>
 
-<!-- Dashboard -->
 
-<section id="dashboard" class="container">
-
-    <h2>Faculty Dashboard</h2>
-
-    <div class="cards">
-
-        <div class="card">
-            <h3 id="totalAssignments">0</h3>
-            <p>Total Assignments</p>
-        </div>
-
-        <div class="card">
-            <h3 id="pendingAssignments">0</h3>
-            <p>Pending Assignments</p>
-        </div>
-
-        <div class="card">
-            <h3 id="completedAssignments">0</h3>
-            <p>Completed</p>
-        </div>
-
-    </div>
-
-</section>
-
-<!-- Create Assignment -->
-
-<section id="create" class="container">
-
-    <h2>Create New Assignment</h2>
-
-    <form id="assignmentForm">
-
-        <label>Assignment Title</label>
-        <input
-            type="text"
-            id="title"
-            placeholder="Enter assignment title"
-            required
-        >
-
-        <label>Subject</label>
-        <input
-            type="text"
-            id="subject"
-            placeholder="Enter subject name"
-            required
-        >
-
-        <label>Description</label>
-        <textarea
-            id="description"
-            placeholder="Enter assignment instructions"
-            required
-        ></textarea>
-
-        <label>Submission Date</label>
-        <input
-            type="date"
-            id="deadline"
-            required
-        >
-
-        <label>Faculty Name</label>
-        <input
-            type="text"
-            id="faculty"
-            placeholder="Enter faculty name"
-            required
-        >
-
-        <button type="submit" class="btn">
-            Create Assignment
-        </button>
-
-    </form>
-
-</section>
-
-<!-- Assignment List -->
-
-<section id="assignments" class="container">
-
-    <h2>Assignment List</h2>
-
-    <input
-        type="text"
-        id="search"
-        class="search"
-        placeholder="🔎 Search assignment..."
-    >
-
-    <div id="assignmentList"></div>
-
-</section>
-
-<footer>
-    <p>© 2026 Faculty Assignment Management System</p>
-</footer>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 
 </body>
+
 </html>

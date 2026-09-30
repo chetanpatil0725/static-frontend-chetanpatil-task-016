@@ -1,127 +1,205 @@
-// Get assignments from localStorage
+// Get form
+
+const form = document.getElementById("assignmentForm");
+
+
+// Get assignment list
+
+const assignmentList = document.getElementById("assignmentList");
+
+
+// Get search box
+
+const search = document.getElementById("search");
+
+
+// Load assignments from localStorage
 
 let assignments =
     JSON.parse(localStorage.getItem("assignments")) || [];
 
 
-// Form
+// Display assignments when page loads
 
-const form = document.getElementById("assignmentForm");
+displayAssignments(assignments);
+
+
+// Create Assignment
 
 form.addEventListener("submit", function(event) {
 
     event.preventDefault();
 
-    const title =
-        document.getElementById("title").value;
 
-    const subject =
-        document.getElementById("subject").value;
+    // Get uploaded file
 
-    const description =
-        document.getElementById("description").value;
+    const fileInput =
+        document.getElementById("chapterFile");
 
-    const deadline =
-        document.getElementById("deadline").value;
 
-    const faculty =
-        document.getElementById("faculty").value;
+    let fileName = "No file uploaded";
 
+
+    if (fileInput.files.length > 0) {
+
+        fileName = fileInput.files[0].name;
+
+    }
+
+
+    // Create assignment object
 
     const assignment = {
 
         id: Date.now(),
 
-        title: title,
+        faculty:
+            document.getElementById("facultyName").value,
 
-        subject: subject,
+        program:
+            document.getElementById("program").value,
 
-        description: description,
+        semester:
+            document.getElementById("semester").value,
 
-        deadline: deadline,
+        subject:
+            document.getElementById("subject").value,
 
-        faculty: faculty,
+        chapter:
+            document.getElementById("chapter").value,
 
-        status: "Pending"
+        title:
+            document.getElementById("title").value,
+
+        description:
+            document.getElementById("description").value,
+
+        questions:
+            document.getElementById("questions").value,
+
+        marks:
+            document.getElementById("marks").value,
+
+        dueDate:
+            document.getElementById("dueDate").value,
+
+        file:
+            fileName,
+
+        important:
+            document.getElementById("important").checked
+
     };
 
 
+    // Add assignment
+
     assignments.push(assignment);
 
-    saveAssignments();
 
-    form.reset();
-
-    displayAssignments();
-
-    alert("Assignment created successfully!");
-});
-
-
-// Save assignments
-
-function saveAssignments() {
+    // Save assignment
 
     localStorage.setItem(
         "assignments",
         JSON.stringify(assignments)
     );
 
-}
+
+    // Display assignments
+
+    displayAssignments(assignments);
 
 
-// Display assignments
+    // Clear form
 
-function displayAssignments(searchText = "") {
-
-    const list =
-        document.getElementById("assignmentList");
-
-    list.innerHTML = "";
+    form.reset();
 
 
-    const filteredAssignments =
-        assignments.filter(function(assignment) {
+    // Message
 
-            return (
-                assignment.title
-                    .toLowerCase()
-                    .includes(searchText.toLowerCase())
-                ||
-                assignment.subject
-                    .toLowerCase()
-                    .includes(searchText.toLowerCase())
-            );
+    alert("Assignment created successfully!");
 
+
+    // Go to assignment section
+
+    document.getElementById("assignments")
+        .scrollIntoView({
+            behavior: "smooth"
         });
 
+});
 
-    if (filteredAssignments.length === 0) {
 
-        list.innerHTML =
-            "<p>No assignments found.</p>";
+// Display Assignments
 
-        updateDashboard();
+function displayAssignments(data) {
+
+    assignmentList.innerHTML = "";
+
+
+    if (data.length === 0) {
+
+        assignmentList.innerHTML =
+            "<p>No assignments created yet.</p>";
 
         return;
+
     }
 
 
-    filteredAssignments.forEach(function(assignment) {
+    data.forEach(function(assignment) {
 
-        const div =
+        const card =
             document.createElement("div");
 
-        div.className = "assignment";
+
+        card.className = "assignment-card";
 
 
-        div.innerHTML = `
+        let importantBadge = "";
 
-            <h3>${assignment.title}</h3>
+
+        if (assignment.important) {
+
+            importantBadge =
+                `<span class="badge">
+                    ⭐ Important Assignment
+                </span>`;
+
+        }
+
+
+        card.innerHTML = `
+
+            ${importantBadge}
+
+            <h3>
+                ${assignment.title}
+            </h3>
+
+            <p>
+                <strong>Faculty:</strong>
+                ${assignment.faculty}
+            </p>
+
+            <p>
+                <strong>Program:</strong>
+                ${assignment.program}
+            </p>
+
+            <p>
+                <strong>Semester:</strong>
+                ${assignment.semester}
+            </p>
 
             <p>
                 <strong>Subject:</strong>
                 ${assignment.subject}
+            </p>
+
+            <p>
+                <strong>Chapter:</strong>
+                ${assignment.chapter}
             </p>
 
             <p>
@@ -130,79 +208,57 @@ function displayAssignments(searchText = "") {
             </p>
 
             <p>
-                <strong>Faculty:</strong>
-                ${assignment.faculty}
+                <strong>Important Questions:</strong>
+                <br>
+                ${assignment.questions.replace(/\n/g, "<br>")}
             </p>
 
             <p>
-                <strong>Deadline:</strong>
-                ${assignment.deadline}
+                <strong>Total Marks:</strong>
+                ${assignment.marks}
             </p>
 
-            <span class="status">
-                ${assignment.status}
-            </span>
+            <p>
+                <strong>Submission Date:</strong>
+                ${assignment.dueDate}
+            </p>
 
-            <br>
+            <div class="file-name">
 
-            <button
-                class="complete-btn"
-                onclick="completeAssignment(${assignment.id})">
-                Mark Completed
-            </button>
+                📎 <strong>Reference File:</strong>
+                ${assignment.file}
+
+            </div>
 
             <button
                 class="delete-btn"
-                onclick="deleteAssignment(${assignment.id})">
-                Delete
+                onclick="deleteAssignment(${assignment.id})"
+            >
+                Delete Assignment
             </button>
 
         `;
 
 
-        list.appendChild(div);
+        assignmentList.appendChild(card);
 
     });
 
-
-    updateDashboard();
 }
 
 
-// Mark assignment completed
-
-function completeAssignment(id) {
-
-    assignments =
-        assignments.map(function(assignment) {
-
-            if (assignment.id === id) {
-
-                assignment.status = "Completed";
-
-            }
-
-            return assignment;
-
-        });
-
-
-    saveAssignments();
-
-    displayAssignments();
-
-}
-
-
-// Delete assignment
+// Delete Assignment
 
 function deleteAssignment(id) {
 
     const confirmDelete =
-        confirm("Delete this assignment?");
+        confirm("Are you sure you want to delete this assignment?");
+
 
     if (!confirmDelete) {
+
         return;
+
     }
 
 
@@ -214,60 +270,69 @@ function deleteAssignment(id) {
         });
 
 
-    saveAssignments();
+    localStorage.setItem(
+        "assignments",
+        JSON.stringify(assignments)
+    );
 
-    displayAssignments();
+
+    displayAssignments(assignments);
 
 }
 
 
-// Search
+// Search Assignment
 
-document
-    .getElementById("search")
-    .addEventListener("input", function() {
+search.addEventListener("input", function() {
 
-        displayAssignments(this.value);
-
-    });
+    const searchText =
+        search.value.toLowerCase();
 
 
-// Dashboard statistics
-
-function updateDashboard() {
-
-    const total =
-        assignments.length;
-
-    const completed =
+    const filtered =
         assignments.filter(function(assignment) {
 
-            return assignment.status === "Completed";
+            return (
 
-        }).length;
+                assignment.title
+                    .toLowerCase()
+                    .includes(searchText)
+
+                ||
+
+                assignment.subject
+                    .toLowerCase()
+                    .includes(searchText)
+
+                ||
+
+                assignment.program
+                    .toLowerCase()
+                    .includes(searchText)
+
+                ||
+
+                assignment.chapter
+                    .toLowerCase()
+                    .includes(searchText)
+
+            );
+
+        });
 
 
-    const pending =
-        total - completed;
+    displayAssignments(filtered);
+
+});
 
 
-    document.getElementById(
-        "totalAssignments"
-    ).textContent = total;
+// Scroll to Create Assignment
 
+function goToCreate() {
 
-    document.getElementById(
-        "pendingAssignments"
-    ).textContent = pending;
-
-
-    document.getElementById(
-        "completedAssignments"
-    ).textContent = completed;
+    document.getElementById("create")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
 
 }
-
-
-// Initial display
-
-displayAssignments();
